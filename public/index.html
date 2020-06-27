@@ -51,6 +51,7 @@
                 if(csv != undefined){
                     words = csv.split('\r\n');
                 }
+                var filtering = $("#filter").is(':checked')
                 $('body').addClass('loading');
 
                 var url = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q=';
@@ -82,7 +83,9 @@
                         $('body').removeClass('loading');
 
                         $('script[jsonp="aws"]').remove();
-
+                        if(filtering){
+                            results=results.filter(function(str){return str.indexOf('shirt')!=-1})
+                        }
                         $('ul').empty().append(
                             results.map(function(r){
                                 return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
@@ -167,6 +170,8 @@
                 <input id="search" class="form-control" type="text" placeholder="Search" aria-label="Search">
                 <input id="csv" class="form-control" type="file" aria-label="csv file">
                 </input>
+                <input type="checkbox" id="filter" name="shirt" >
+                <label for="filter"> filter shirt</label><br>
                 
             </form>
             <h3>Results</h3>
