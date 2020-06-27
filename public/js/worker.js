@@ -90,6 +90,7 @@ function start(evt){
                         $('head').append(newScript);
                     }
                     },
+                    //PERIOD FOR WAITING
                     5000 * i,search[i]);
                     
                 }
