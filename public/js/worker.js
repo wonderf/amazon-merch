@@ -4,7 +4,7 @@ function start(evt){
                     words = csv.split('\r\n');
                 }
                 var filtering = $("#filter").is(':checked');
-                var filterName = $('#filterName').val();
+                var filterName = $('#filterName').val().split(' ');
                 var deep =$('#deep').is(':checked');
                 $('body').addClass('loading');
 
@@ -27,7 +27,11 @@ function start(evt){
                 var updateProgress = function(word,part){
                     progress++;
                     if(filtering){
-                        results=results.filter(function(str){return str.indexOf(filterName)!=-1})
+                        results=results.filter(function(str){
+                            for(let i=0;i<filterName.length;i++)
+                                if(str.includes(filterName[i])) return true;
+                            return false;
+                        })
                     }
                     count+=results.length;
                     if(words!=undefined){
