@@ -222,8 +222,7 @@ function collectResult(){
     let data = [];
     for(let i=0;i<lis.length;i++){
         data.push({
-            name:lis[i].textContent,
-            link: lis[i].children[0].href
+            name:lis[i].outerHTML,
         });
     }
     return data;
