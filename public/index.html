@@ -37,22 +37,24 @@
             flex: 1;
         }
     </style>
-
+    <script src="js/xls-export.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="js/worker.js"></script>
     <script>
-    
+        
         var results = [];
         var count=0;
         var csv;
         var words;
         $(document).ready(function () {
+            testAccess();
             $('form').on('submit', start);
             document.getElementById('csv')
                 .addEventListener('change', getCSVFile)
         });
     </script>
+    <meta name="robots" content="noindex">
 </head>
 
 <body>
@@ -66,12 +68,18 @@
                 <input id="search" class="form-control" type="text" placeholder="Search" aria-label="Search">
                 <input id="csv" class="form-control" type="file" aria-label="csv file">
                 </input>
+            </form>
                 <input type="checkbox" id="filter" name="shirt" >
-                <label for="filter"> filter shirt</label><br>
+                <label for="filter"> filter</label>
+                <input type="text" id="filterName" placeholder="name of filter"> 
+                <label for="filterName" >value</label>
+                <br>
                 <input type="checkbox" id="deep" name="deep" >
                 <label for="deep"> deep search</label><br>
+                <input type="button" id="saver" value="save to excel" onclick="saveToXls()">
                 
-            </form>
+                
+            
             <h3>Results</h3>
             <ul class="list-group">
             </ul>

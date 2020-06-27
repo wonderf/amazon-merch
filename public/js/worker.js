@@ -4,6 +4,7 @@ function start(evt){
                     words = csv.split('\r\n');
                 }
                 var filtering = $("#filter").is(':checked');
+                var filterName = $('#filterName').val();
                 var deep =$('#deep').is(':checked');
                 $('body').addClass('loading');
 
@@ -26,7 +27,7 @@ function start(evt){
                 var updateProgress = function(word,part){
                     progress++;
                     if(filtering){
-                        results=results.filter(function(str){return str.indexOf('shirt')!=-1})
+                        results=results.filter(function(str){return str.indexOf(filterName)!=-1})
                     }
                     count+=results.length;
                     if(words!=undefined){
@@ -189,4 +190,37 @@ return new Promise((resolve, reject) => {
     reader.onerror = error => reject(error)
     reader.readAsText(file)
 })
+}
+
+async function digestMessage(message) {
+    const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+    return hashHex;
+  }
+
+function testAccess(){
+    var inputed = prompt("");
+    digestMessage(inputed).then(m=>{
+        if(m!="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
+            testAccess();
+    })
+}
+
+function saveToXls(){
+    const xls = new XlsExport(collectResult(), "collection");
+    xls.exportToXLS('export.xls')
+}
+
+function collectResult(){
+    let lis = $('li');
+    let data = [];
+    for(let i=0;i<lis.length;i++){
+        data.push({
+            name:lis[i].textContent,
+            link: lis[i].children[0].href
+        });
+    }
+    return data;
 }
