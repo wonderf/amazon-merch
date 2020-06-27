@@ -3,7 +3,8 @@ function start(evt){
                 if(csv != undefined){
                     words = csv.split('\r\n');
                 }
-                var filtering = $("#filter").is(':checked')
+                var filtering = $("#filter").is(':checked');
+                var deep =$('#deep').is(':checked');
                 $('body').addClass('loading');
 
                 var url = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q=';
@@ -53,6 +54,41 @@ function start(evt){
                 var z = 'z'.charCodeAt();
                 var zero = '0'.charCodeAt();
                 var nine = '9'.charCodeAt();
+                if(deep){
+                    for(var i=0;i<search.length;i++){
+                        setTimeout(function(input){
+                            var k=0;
+                            window['AmazonJSONPCallbackHandler_'+k] = function(json){
+                                results = results.concat(json[1]);
+                                updateProgress(input);
+                            };
+    
+                            var newScript = document.createElement('script');
+                            newScript.setAttribute('jsonp', 'aws');
+                            newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                            +encodeURIComponent(input )+'&callback=AmazonJSONPCallbackHandler_'+k;
+                            $('head').append(newScript);
+                            k++;
+                            var generated = wordsGenerator();
+                            for (var l = 0; l < generated.length; l++) {
+                                window['AmazonJSONPCallbackHandler_'+k] = function(json){
+                                    results = results.concat(json[1]);
+                                    updateProgress(input);
+                                };
+        
+                                var newScript = document.createElement('script');
+                                newScript.setAttribute('jsonp', 'aws');
+                                newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                                +encodeURIComponent(input+' '  + generated[l])+'&callback=AmazonJSONPCallbackHandler_'+k;
+                                k++;
+                                $('head').append(newScript);
+                            }
+                        },
+                        //PERIOD FOR WAITING
+                        5000 * i,search[i]);
+                        
+                    }
+                }else{
                 for(var i=0;i<search.length;i++){
                     setTimeout(function(input){
                         window['AmazonJSONPCallbackHandler_'+0] = function(json){
@@ -94,10 +130,30 @@ function start(evt){
                     5000 * i,search[i]);
                     
                 }
+            }
 
                 return false;
 }
-
+function wordsGenerator(){
+    var a = 'a'.charCodeAt();
+    var z = 'z'.charCodeAt();
+    var zero = '0'.charCodeAt();
+    var nine = '9'.charCodeAt();
+    var alpha=[];
+    var result = [];
+    for(let i=zero;i<=nine;i++){
+        alpha.push(String.fromCharCode(i));
+    }
+    for(let i=a;i<=z;i++){
+        alpha.push(String.fromCharCode(i));
+    }
+    for(let i=0;i<alpha.length;i++){
+        for(let j=0;j<alpha.length;j++){
+            result.push(alpha[i]+alpha[j]);
+        }
+    }
+    return result;
+}
 function getCSVFile(event) {
     const input = event.target
     if ('files' in input && input.files.length > 0) {
