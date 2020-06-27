@@ -23,15 +23,20 @@ function start(evt){
                 var callbacks = [];
 
             
-                var updateProgress = function(word){
+                var updateProgress = function(word,part){
                     progress++;
+                    count+=results.length;
                     if(words!=undefined){
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
-                        $('h3').text(`${results.length} Results (${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                        $('h3').text(`${count} Results (${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
                     }
                     else{
-                        $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
-                        $('h3').text(`${results.length} Results `);
+                        if(deep){
+                            $('h3').text(`${count} Results (${(part+1)/36 * 100}% last search:${word})`);
+                        }else{
+                            $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
+                            $('h3').text(`${count} Results `);
+                        }
                     }
                     if (progress >= callbacks.length) {
                         $input.removeAttr('readonly');
@@ -41,11 +46,13 @@ function start(evt){
                         if(filtering){
                             results=results.filter(function(str){return str.indexOf('shirt')!=-1})
                         }
-                        $('ul').empty().append(
+                        $('ul').append(
                             results.map(function(r){
                                 return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
                             })
                         )
+                        
+                        results=[];
                         progress=0;
                     }
                 };
@@ -56,11 +63,13 @@ function start(evt){
                 var nine = '9'.charCodeAt();
                 if(deep){
                     for(var i=0;i<search.length;i++){
-                        setTimeout(function(input){
+                        for(let j=0;j<36;j++){
+                        setTimeout(function(input,chars,part){
                             var k=0;
+                            this.parting = part;
                             window['AmazonJSONPCallbackHandler_'+k] = function(json){
                                 results = results.concat(json[1]);
-                                updateProgress(input);
+                                updateProgress(input,parting);
                             };
     
                             var newScript = document.createElement('script');
@@ -69,23 +78,24 @@ function start(evt){
                             +encodeURIComponent(input )+'&callback=AmazonJSONPCallbackHandler_'+k;
                             $('head').append(newScript);
                             k++;
-                            var generated = wordsGenerator();
-                            for (var l = 0; l < generated.length; l++) {
+                            
+                            for (var l = 0; l < chars.length; l++) {
                                 window['AmazonJSONPCallbackHandler_'+k] = function(json){
                                     results = results.concat(json[1]);
-                                    updateProgress(input);
+                                    updateProgress(input,parting);
                                 };
         
                                 var newScript = document.createElement('script');
                                 newScript.setAttribute('jsonp', 'aws');
                                 newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
-                                +encodeURIComponent(input+' '  + generated[l])+'&callback=AmazonJSONPCallbackHandler_'+k;
+                                +encodeURIComponent(input+' '  + chars[l])+'&callback=AmazonJSONPCallbackHandler_'+k;
                                 k++;
                                 $('head').append(newScript);
                             }
                         },
                         //PERIOD FOR WAITING
-                        5000 * i,search[i]);
+                        5000 * i + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),j);
+                    }
                         
                     }
                 }else{
