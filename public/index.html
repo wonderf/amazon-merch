@@ -103,6 +103,16 @@
                 var nine = '9'.charCodeAt();
                 for(var i=0;i<search.length;i++){
                     setTimeout(function(input){
+                        window['AmazonJSONPCallbackHandler_'+0] = function(json){
+                            results = results.concat(json[1]);
+                            updateProgress(input);
+                        };
+
+                        var newScript = document.createElement('script');
+                        newScript.setAttribute('jsonp', 'aws');
+                        newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                        +encodeURIComponent(input )+'&callback=AmazonJSONPCallbackHandler_'+0;
+                        $('head').append(newScript);
                         for (var l = a; l <= z; l++) {
                         window['AmazonJSONPCallbackHandler_'+l] = function(json){
                             results = results.concat(json[1]);
@@ -112,7 +122,7 @@
                         var newScript = document.createElement('script');
                         newScript.setAttribute('jsonp', 'aws');
                         newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
-                        +encodeURIComponent(input  + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                        +encodeURIComponent(input+' '  + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
                         $('head').append(newScript);
                     }
                     for (var l = zero; l <= nine; l++) {
@@ -124,7 +134,7 @@
                         var newScript = document.createElement('script');
                         newScript.setAttribute('jsonp', 'aws');
                         newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
-                        +encodeURIComponent(input  + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                        +encodeURIComponent(input +' ' + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
                         $('head').append(newScript);
                     }
                     },
