@@ -25,6 +25,9 @@ function start(evt){
             
                 var updateProgress = function(word,part){
                     progress++;
+                    if(filtering){
+                        results=results.filter(function(str){return str.indexOf('shirt')!=-1})
+                    }
                     count+=results.length;
                     if(words!=undefined){
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
@@ -43,9 +46,7 @@ function start(evt){
                         $('body').removeClass('loading');
 
                         $('script[jsonp="aws"]').remove();
-                        if(filtering){
-                            results=results.filter(function(str){return str.indexOf('shirt')!=-1})
-                        }
+                        
                         $('ul').append(
                             results.map(function(r){
                                 return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
