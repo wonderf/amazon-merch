@@ -30,12 +30,17 @@ function start(evt){
                     }
                     count+=results.length;
                     if(words!=undefined){
+                        if(deep){
+                            $('h3').text(`${count} Results (${parseInt((part+1)/36 * 100)*parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                        }
+                        else{
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
                         $('h3').text(`${count} Results (${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                        }
                     }
                     else{
                         if(deep){
-                            $('h3').text(`${count} Results (${(part+1)/36 * 100}% last search:${word})`);
+                            $('h3').text(`${count} Results (${parseInt((part+1)/36 * 100)}% last search:${word})`);
                         }else{
                             $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
                             $('h3').text(`${count} Results `);
