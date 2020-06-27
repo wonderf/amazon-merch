@@ -74,10 +74,12 @@
                     progress++;
                     if(words!=undefined){
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
-                        $('h3').text(`(${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                        $('h3').text(`${results.length} Results (${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
                     }
-                    else
+                    else{
                         $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
+                        $('h3').text(`${results.length} Results `);
+                    }
                     if (progress >= callbacks.length) {
                         $input.removeAttr('readonly');
                         $('body').removeClass('loading');
