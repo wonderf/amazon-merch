@@ -31,7 +31,7 @@ function start(evt){
                     count+=results.length;
                     if(words!=undefined){
                         if(deep){
-                            $('h3').text(`${count} Results (${parseInt((part+1)/36 * 100)*parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                            $('h3').text(`${count} Results (${parseInt(((part+1)*(words.indexOf(word)+1))/(words.length * 100*36))}% last search:${word})`);
                         }
                         else{
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
@@ -100,7 +100,7 @@ function start(evt){
                             }
                         },
                         //PERIOD FOR WAITING
-                        5000 * i + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),j);
+                        5000 * i *wordsGenerator().length + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),j);
                     }
                         
                     }
