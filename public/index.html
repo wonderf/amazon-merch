@@ -42,6 +42,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <script>
+        var results = [];
         $(document).ready(function () {
             $('form').on('submit', function (evt) {
                 evt.preventDefault();
@@ -60,8 +61,7 @@
                
                 var callbacks = [];
 
-                var results = [];
-
+            
                 var updateProgress = function(){
                     progress++;
                     $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
@@ -74,9 +74,7 @@
 
                         $('ul').empty().append(
                             results.map(function(r){
-                                return $('<li/>')
-                                    .addClass('list-group-item')
-                                    .text(r);
+                                return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
                             })
                         )
                     }
@@ -92,7 +90,8 @@
 
                     var newScript = document.createElement('script');
                     newScript.setAttribute('jsonp', 'aws');
-                    newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='+encodeURIComponent(search + ' ' + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                    newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                    +encodeURIComponent(search  + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
                     $('head').append(newScript);
                 }
 
