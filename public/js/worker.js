@@ -24,7 +24,7 @@ function start(evt){
                 var callbacks = [];
 
             
-                var updateProgress = function(word,part){
+                var updateProgress = function(word,cur,total){
                     progress++;
                     if(filtering){
                         results=results.filter(function(str){
@@ -36,16 +36,16 @@ function start(evt){
                     count+=results.length;
                     if(words!=undefined){
                         if(deep){
-                            $('h3').text(`${count} Results (${parseInt(((part+1)*(words.indexOf(word)+1))/(words.length * 100*36))}% last search:${word})`);
+                            $('h3').text(`${count} Results (${parseInt(cur/total*100)}% last search:${word})`);
                         }
                         else{
                         $('.progress-bar').css('width', parseInt(words.indexOf(word)+1/words.length * 100) + '%');
-                        $('h3').text(`${count} Results (${parseInt((words.indexOf(word)+1)/words.length * 100)}% last search:${word})`);
+                        $('h3').text(`${count} Results (${parseInt(cur/total*100)}% last search:${word})`);
                         }
                     }
                     else{
                         if(deep){
-                            $('h3').text(`${count} Results (${parseInt((part+1)/36 * 100)}% last search:${word})`);
+                            $('h3').text(`${count} Results (${parseInt(cur/total*100)}% last search:${word})`);
                         }else{
                             $('.progress-bar').css('width', parseInt(progress/callbacks.length * 100) + '%');
                             $('h3').text(`${count} Results `);
@@ -75,12 +75,12 @@ function start(evt){
                 if(deep){
                     for(var i=0;i<search.length;i++){
                         for(let j=0;j<36;j++){
-                        setTimeout(function(input,chars,part){
+                        setTimeout(function(input,chars,cur,total){
                             var k=0;
-                            this.parting = part;
+                            
                             window['AmazonJSONPCallbackHandler_'+k] = function(json){
                                 results = results.concat(json[1]);
-                                updateProgress(input,parting);
+                                updateProgress(input,cur,total);
                             };
     
                             var newScript = document.createElement('script');
@@ -93,7 +93,7 @@ function start(evt){
                             for (var l = 0; l < chars.length; l++) {
                                 window['AmazonJSONPCallbackHandler_'+k] = function(json){
                                     results = results.concat(json[1]);
-                                    updateProgress(input,parting);
+                                    updateProgress(input,cur,total);
                                 };
         
                                 var newScript = document.createElement('script');
@@ -105,16 +105,16 @@ function start(evt){
                             }
                         },
                         //PERIOD FOR WAITING
-                        5000 * i *wordsGenerator().length + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),j);
+                        180000*i + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),180000*i + 5000*j,180000*(search.length-1)+5000*35);
                     }
                         
                     }
                 }else{
                 for(var i=0;i<search.length;i++){
-                    setTimeout(function(input){
+                    setTimeout(function(input,cur,total){
                         window['AmazonJSONPCallbackHandler_'+0] = function(json){
                             results = results.concat(json[1]);
-                            updateProgress(input);
+                            updateProgress(input,cur,total);
                         };
 
                         var newScript = document.createElement('script');
@@ -125,7 +125,7 @@ function start(evt){
                         for (var l = a; l <= z; l++) {
                         window['AmazonJSONPCallbackHandler_'+l] = function(json){
                             results = results.concat(json[1]);
-                            updateProgress(input);
+                            updateProgress(input,cur,total);
                         };
 
                         var newScript = document.createElement('script');
@@ -137,7 +137,7 @@ function start(evt){
                     for (var l = zero; l <= nine; l++) {
                         window['AmazonJSONPCallbackHandler_'+l] = function(json){
                             results = results.concat(json[1]);
-                            updateProgress(input);
+                            updateProgress(input,cur,total);
                         };
 
                         var newScript = document.createElement('script');
@@ -148,7 +148,7 @@ function start(evt){
                     }
                     },
                     //PERIOD FOR WAITING
-                    5000 * i,search[i]);
+                    5000 * i,search[i],5000*i,5000*(search.length-1));
                     
                 }
             }
