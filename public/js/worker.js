@@ -213,17 +213,46 @@ function testAccess(){
 }
 
 function saveToXls(){
-    const xls = new XlsExport(collectResult(), "collection");
-    xls.exportToXLS('export.xls')
+    var wb = XLSX.utils.book_new();
+    wb.Props = {
+            Title: "SheetJS Tutorial",
+            Subject: "Test",
+            Author: "Red Stapler",
+            CreatedDate: new Date()
+    };
+    
+    wb.SheetNames.push("Test Sheet");
+    var ws_data = collectResult();
+    var ws = {};
+    // var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    // var ws = XLSX.utils.json_to_sheet(ws_data);
+    wb.Sheets["Test Sheet"] = ws_data;
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test.xlsx');
+}
+
+function s2ab(s) {
+  
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+    
 }
 
 function collectResult(){
     let lis = $('li');
-    let data = [];
+    // let data = [];
+    let data = {};
     for(let i=0;i<lis.length;i++){
-        data.push({
-            name:lis[i].outerHTML,
-        });
+        // data.push({
+        //     name:lis[i].outerHTML,
+        // });
+        // data.push(lis[i].outerHTML);
+        let cell = XLSX.utils.encode_cell({c:0,r:i});
+        
+        data[cell]={f: `=HYPERLINK("${lis[i].children[0].href}","${lis[i].textContent}")`,v:lis[i].textContent,t:"s"}
     }
+    data["!ref"]=`A1:${XLSX.utils.encode_cell({c:0,r:lis.length-1})}`
     return data;
 }
