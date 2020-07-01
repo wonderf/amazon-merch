@@ -1,14 +1,20 @@
+var file_name;
 function start(evt){
     evt.preventDefault();
+    var zone = $('#us_zone').prop("checked");
                 if(csv != undefined){
                     words = csv.split('\r\n');
+                }
+                if(file_name==undefined){
+                    result_name=$('#search').val()+"_result.csv";
+                }
+                else{
+                    result_name=file_name.split(".csv")[0]+"_result.csv";
                 }
                 var filtering = $("#filter").is(':checked');
                 var filterName = $('#filterName').val().split(' ');
                 var deep =$('#deep').is(':checked');
                 $('body').addClass('loading');
-
-                var url = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q=';
 
                 var $input = $(evt.target).find('input')
                     .attr('readonly', true);
@@ -59,7 +65,9 @@ function start(evt){
                         
                         $('ul').append(
                             results.map(function(r){
-                                return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
+                                if(zone) return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
+                                else
+                                return `<li class='list-group-item'><a href="https://www.amazon.co.uk/s?k=${r}&hidden-keywords=%22Solid+colors%3A+100%25+Cotton%3B+Heather+Grey%3A+90%25+Cotton%2C+10%25+Polyester%3B+All+Other+Heathers%3A+50%25+Cotton%2C+50%25+Polyester%22" target="_blank">${r}</a></li>`;
                             })
                         )
                         
@@ -85,8 +93,13 @@ function start(evt){
     
                             var newScript = document.createElement('script');
                             newScript.setAttribute('jsonp', 'aws');
+                            if(zone){
                             newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
                             +encodeURIComponent(input )+'&callback=AmazonJSONPCallbackHandler_'+k;
+                            }
+                            else{
+                                newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_${k}&noCacheIE=1295031912518`
+                            }
                             $('head').append(newScript);
                             k++;
                             
@@ -98,8 +111,13 @@ function start(evt){
         
                                 var newScript = document.createElement('script');
                                 newScript.setAttribute('jsonp', 'aws');
+                                if(zone){
                                 newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
                                 +encodeURIComponent(input+' '  + chars[l])+'&callback=AmazonJSONPCallbackHandler_'+k;
+                                }
+                                else{
+                                    newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input+' '  + chars[l] )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_${k}&noCacheIE=1295031912518`
+                                }
                                 k++;
                                 $('head').append(newScript);
                             }
@@ -119,8 +137,13 @@ function start(evt){
 
                         var newScript = document.createElement('script');
                         newScript.setAttribute('jsonp', 'aws');
+                        if(zone){
                         newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
                         +encodeURIComponent(input )+'&callback=AmazonJSONPCallbackHandler_'+0;
+                        }else{
+                            newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_0&noCacheIE=1295031912518`
+                                
+                        }
                         $('head').append(newScript);
                         for (var l = a; l <= z; l++) {
                         window['AmazonJSONPCallbackHandler_'+l] = function(json){
@@ -130,8 +153,13 @@ function start(evt){
 
                         var newScript = document.createElement('script');
                         newScript.setAttribute('jsonp', 'aws');
+                        if(zone){
                         newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
                         +encodeURIComponent(input+' '  + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                        }else{
+                            newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input+' '  + String.fromCharCode(l) )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_${l}&noCacheIE=1295031912518`
+                                
+                        }
                         $('head').append(newScript);
                     }
                     for (var l = zero; l <= nine; l++) {
@@ -142,8 +170,12 @@ function start(evt){
 
                         var newScript = document.createElement('script');
                         newScript.setAttribute('jsonp', 'aws');
-                        newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
-                        +encodeURIComponent(input +' ' + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                        if(zone){
+                            newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                            +encodeURIComponent(input +' ' + String.fromCharCode(l))+'&callback=AmazonJSONPCallbackHandler_'+l;
+                        }else{
+                            newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input+' '  + String.fromCharCode(l) )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_${l}&noCacheIE=1295031912518`
+                        }
                         $('head').append(newScript);
                     }
                     },
@@ -155,6 +187,13 @@ function start(evt){
 
                 return false;
 }
+
+function cleaner(){
+    $('ul').empty();
+    $('h3').text(`Results`);
+    count=0;
+}
+
 function wordsGenerator(){
     var a = 'a'.charCodeAt();
     var z = 'z'.charCodeAt();
@@ -183,6 +222,7 @@ function getCSVFile(event) {
     }
 }
 function placeFileCSVContent(file) {
+    file_name = file.name;
     readCSVFileContent(file).then(content => {
     csv = content
     }).catch(error => console.log(error))
@@ -228,7 +268,7 @@ function saveToXls(){
     // var ws = XLSX.utils.json_to_sheet(ws_data);
     wb.Sheets["Test Sheet"] = ws_data;
     var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test.xlsx');
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), result_name);
 }
 
 function s2ab(s) {
@@ -239,6 +279,7 @@ function s2ab(s) {
     return buf;
     
 }
+
 
 function collectResult(){
     let lis = $('li');

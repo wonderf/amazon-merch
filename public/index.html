@@ -46,6 +46,7 @@
     <script>
         
         var results = [];
+        var result_name;
         var count=0;
         var total;
         var csv;
@@ -79,9 +80,14 @@
                 <br>
                 <input type="checkbox" id="deep" name="deep" >
                 <label for="deep"> deep search</label><br>
-                <input type="button" id="saver" value="save to excel" onclick="saveToXls()">
-                
-                
+
+                <input type="radio" id="us_zone" name="zone" value="US" checked>
+                <label for="us_zone">US</label>
+                <input type="radio" id="uk_zone" name="zone" value="UK">
+                <label for="uk_zone">UK</label><br>
+
+                <input type="button" id="saver" value="save to excel" onclick="saveToXls()" class="mb-2"><br>
+                <input type="button" id="cleaner" value="clear results" onclick="cleaner()">
             
             <h3>Results</h3>
             <ul class="list-group">
