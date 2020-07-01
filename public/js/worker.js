@@ -32,14 +32,31 @@ function start(evt){
             
                 var updateProgress = function(word,cur,total){
                     progress++;
+                    let pushing = [];
                     if(filtering){
                         results=results.filter(function(str){
                             for(let i=0;i<filterName.length;i++)
                                 if(str.includes(filterName[i])) return true;
                             return false;
                         })
+                        
                     }
-                    count+=results.length;
+                    let lis = $('li');
+                    let p = true;
+                    for(let i=0;i<results.length;i++){
+                        for(let j=0;j<lis.length;j++){
+                            if(results[i]==lis[j].textContent){
+                                p=false;
+                                break;
+                            }
+                        }
+                        if(p)
+                            pushing.push(results[i]);
+                        else{
+                            p=true;
+                        }
+                    }
+                    count+=pushing.length;
                     if(words!=undefined){
                         if(deep){
                             $('h3').text(`${count} Results (${parseInt(cur/total*100)}% last search:${word})`);
@@ -64,7 +81,7 @@ function start(evt){
                         $('script[jsonp="aws"]').remove();
                         
                         $('ul').append(
-                            results.map(function(r){
+                            pushing.map(function(r){
                                 if(zone) return `<li class='list-group-item'><a href="https://www.amazon.com/s?k=${r}&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA" target="_blank">${r}</a></li>`
                                 else
                                 return `<li class='list-group-item'><a href="https://www.amazon.co.uk/s?k=${r}&hidden-keywords=%22Solid+colors%3A+100%25+Cotton%3B+Heather+Grey%3A+90%25+Cotton%2C+10%25+Polyester%3B+All+Other+Heathers%3A+50%25+Cotton%2C+50%25+Polyester%22" target="_blank">${r}</a></li>`;
