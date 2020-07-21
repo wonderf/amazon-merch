@@ -14,6 +14,7 @@ function start(evt){
                 var filtering = $("#filter").is(':checked');
                 var filterName = $('#filterName').val().split(' ');
                 var deep =$('#deep').is(':checked');
+                var reverse = $('#reverse').is(':checked');
                 $('body').addClass('loading');
 
                 var $input = $(evt.target).find('input')
@@ -143,6 +144,41 @@ function start(evt){
                         180000*i + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),180000*i + 5000*j,180000*(search.length-1)+5000*35);
                     }
                         
+                    }
+                    if(reverse){
+                        const shift = 180000*(search.length-1) + 5000*35;
+                        for(var i=0;i<search.length;i++){
+                            for(let j=0;j<36;j++){
+                            setTimeout(function(input,chars,cur,total){
+                                //todo check it
+                                var k=0;
+                                $('head').append(newScript);
+                                k++;
+                                
+                                for (var l = 0; l < chars.length; l++) {
+                                    window['AmazonJSONPCallbackHandler_'+k] = function(json){
+                                        results = results.concat(json[1]);
+                                        updateProgress(input,cur,total);
+                                    };
+            
+                                    var newScript = document.createElement('script');
+                                    newScript.setAttribute('jsonp', 'aws');
+                                    if(zone){
+                                    newScript.src = 'https://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q='
+                                    +encodeURIComponent(input+' '  + chars[l])+'&callback=AmazonJSONPCallbackHandler_'+k;
+                                    }
+                                    else{
+                                        newScript.src=`https://completion.amazon.co.uk/search/complete?method=completion&q=${encodeURIComponent(input+' '  + chars[l] )}&search-alias=aps&mkt=4&callback=AmazonJSONPCallbackHandler_${k}&noCacheIE=1295031912518`
+                                    }
+                                    k++;
+                                    $('head').append(newScript);
+                                }
+                            },
+                            //PERIOD FOR WAITING
+                            180000*i + 5000*j,search[i],wordsGenerator().slice(j*36,(j+1)*36),180000*i + 5000*j,180000*(search.length-1)+5000*35);
+                        }
+                            
+                        }
                     }
                 }else{
                 for(var i=0;i<search.length;i++){
