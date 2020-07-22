@@ -70,6 +70,7 @@ function start(evt) {
             } else {
                 $('.progress-bar').css('width', parseInt(progress / callbacks.length * 100) + '%');
                 $('h3').text(`${count} Results `);
+                console.log(cur +' '+total);
             }
         }
         if (progress >= callbacks.length) {
