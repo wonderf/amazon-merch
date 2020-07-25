@@ -88,9 +88,13 @@ function start(evt) {
             )
             $('#searchEngine').append(
                 pushing.map(function (r) {
-                    return `<li style="display: block;padding-bottom: 13px;padding-top: 13px;margin-bottom: -1px"><a href="https://www.amazon.com/s?k=${r} target="_blank"">Amazon</a> | <a href="https://www.google.com/search?q=${r}" target="_blank">Google</a></li>`
+                    return `<li style="display: block;padding-bottom: 13px;padding-top: 13px;margin-bottom: -1px"><a href="https://www.amazon.com/s?k=${r}" target="_blank">Amazon</a> | <a href="https://www.google.com/search?q=${r}" target="_blank">Google</a></li>`
                 })
             )
+
+
+
+
 
             let results = $('#searchUl li');
             let links = $('#searchEngine li');
