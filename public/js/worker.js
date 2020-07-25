@@ -70,7 +70,7 @@ function start(evt) {
             } else {
                 $('.progress-bar').css('width', parseInt(progress / callbacks.length * 100) + '%');
                 $('h3').text(`${count} Results `);
-                console.log(cur +' '+total);
+                console.log(progress + ' ' +callbacks.length);
             }
         }
         if (progress >= callbacks.length) {
@@ -91,6 +91,12 @@ function start(evt) {
                     return `<li style="display: block;padding-bottom: 13px;padding-top: 13px;margin-bottom: -1px"><a href="https://www.amazon.com/s?k=${r} target="_blank"">Amazon</a> | <a href="https://www.google.com/search?q=${r}" target="_blank">Google</a></li>`
                 })
             )
+
+            let results = $('#searchUl li');
+            let links = $('#searchEngine li');
+            for(let i=0;i<results.length;i++){
+                links[i].style.height=(results[i].clientHeight +2).toString();
+            }
 
             results = [];
             progress = 0;
