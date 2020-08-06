@@ -12,7 +12,7 @@ function start(evt) {
         result_name = file_name.split(".csv")[0] + "_result.xlsx";
     }
     var filtering = $("#filter").is(':checked');
-    var filterName = $('#filterName').val().split(' ');
+    var filterName = $('#filterName').val().split(',').map(x=>x.trim())
     var deep = $('#deep').is(':checked');
     var reverse = $('#reverse').is(':checked');
     $('body').addClass('loading');
