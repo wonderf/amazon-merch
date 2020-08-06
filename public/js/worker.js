@@ -7,9 +7,9 @@ function start(evt) {
         words = csv.split('\r\n');
     }
     if (file_name == undefined) {
-        result_name = $('#search').val() + "_result.csv";
+        result_name = $('#search').val() + "_result.xlsx";
     } else {
-        result_name = file_name.split(".csv")[0] + "_result.csv";
+        result_name = file_name.split(".csv")[0] + "_result.xlsx";
     }
     var filtering = $("#filter").is(':checked');
     var filterName = $('#filterName').val().split(' ');
@@ -384,7 +384,7 @@ function s2ab(s) {
 
 
 function collectResult() {
-    let lis = $('li');
+    let lis = $('#searchUl li');
     // let data = [];
     let data = {};
     for (let i = 0; i < lis.length; i++) {
