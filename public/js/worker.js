@@ -291,7 +291,7 @@ function cleaner() {
     $('#searchEngine').empty();
     $('h3').text(`Results`);
     count = 0;
-    result=[];
+    results=[];
 }
 
 function wordsGenerator() {
