@@ -294,6 +294,7 @@ function cleaner() {
     results=[];
     csv=undefined;
     document.getElementById('csv').value="";
+    words=undefined
 }
 
 function wordsGenerator() {
