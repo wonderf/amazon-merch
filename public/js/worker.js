@@ -292,6 +292,9 @@ function cleaner() {
     $('h3').text(`Results`);
     count = 0;
     results=[];
+    csv=undefined;
+    document.getElementById('csv').value="";
+    words=undefined
 }
 
 function wordsGenerator() {
