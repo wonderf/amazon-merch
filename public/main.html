@@ -16,138 +16,280 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="container-fluid">
+
+<div class="container-fluid px-4">
     <div class="row">
-        <div class="col-3 offset-1">
+        <div class="col-10 offset-1 ">
+            <ul class="nav justify-content-end">
+                <li class="nav-item ">
+                    <a class="nav-link text-secondary" href="#">AMS.Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">MBA.Listener</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="#">SVG.Replicator</a>
+                </li>
+            </ul>
             <div class="row">
-                <div class="col-8">
-                    <img src="img/ams.png" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-
-            <form>
-                <div class="form-group">
-                    <input id="search" class="form-control rounded-pill my-2" type="text" placeholder="Search"
-                           aria-label="Search">
-                </div>
-                <div class="form-group">
-                    <div class="custom-file col-12 ">
-                        <input type="file" class="custom-file-input rounded-pill" id="csv">
-                        <label class="custom-file-label" for="csv" aria-describedby="inputGroupFileAddon02">Choose
-                            file</label>
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <span class="text-left">Market</span>
-
-                    <div class="form-check form-check-inline offset-3">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                               value="option1" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            US
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                               value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            ES
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                               value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            FR
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                               value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            UK
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                               value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            DE
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            Deep search
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            Reverse search
-                        </label>
-                    </div>
-                </div>
-                <div class="form-inline">
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                Filter
-                            </label>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="img/ams.png" class="img-fluid" alt="Responsive image">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input id="search" class="form-control col-12 rounded-pill my-2 offset-8" type="text" value="shirt, gift, apparel"
-                               aria-label="Search">
+
+                    <form>
+                        <div class="form-group">
+                            <input id="search" class="form-control rounded-pill my-2" type="text" placeholder="Search"
+                                   aria-label="Search">
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file col-12 ">
+                                <input type="file" class="custom-file-input rounded-pill" id="csv">
+                                <label class="custom-file-label" for="csv" aria-describedby="inputGroupFileAddon02">Choose
+                                    file</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-end">
+                            <span class="mr-auto">Market</span>
+
+                            <div class="form-check form-check-inline ">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                       value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    US
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    ES
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    FR
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    UK
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    DE
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Deep search
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Reverse search
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Filter
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group ml-auto">
+                                <input id="search" class="form-control rounded-pill " type="text"
+                                       value="shirt, gift, apparel"
+                                       aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column form-group align-items-end">
+                            <button type="submit" class="btn btn-outline-secondary my-2">Search</button>
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="img/ams.png" class="img-fluid" alt="Responsive image">
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="form-group row mt-2">
+                            <label for="inputPassword" class="col-6 col-form-label">Portfolio</label>
+                            <div class="col-6 ">
+                                <input type="text" class="form-control rounded-pill" id="inputPassword"
+                                       placeholder="Portfolio id">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="inputPassword" class="col-6 col-form-label">Campaign</label>
+                            <div class="col-6 ">
+                                <input type="text" class="form-control rounded-pill" id="inputPassword"
+                                       placeholder="Campaign name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="inputPassword" class="col-6 col-form-label">ASIN</label>
+                            <div class="col-6 ">
+                                <input type="text" class="form-control rounded-pill" id="inputPassword"
+                                       placeholder="ASIN, ASIN, ASIN...">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="inputPassword" class="col-6 col-form-label">Match type</label>
+                            <div class="col-6 ">
+                                <input type="text" class="form-control rounded-pill" id="inputPassword"
+                                       placeholder="Phrase">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="inputPassword" class="col-4 col-form-label">Max bid</label>
+                            <div class="col-4 offset-4 ">
+                                <input type="number" step="0.05" class="form-control rounded-pill" id="inputPassword"
+                                       value="0.15">
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex flex-column form-group align-items-end">
+                            <button type="submit" class="btn btn-outline-secondary my-2">CREATE AD</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-8">
+
+                    <table class="table mh-90">
+                        <thead>
+                        <tr>
+                            <div class="row">
+                                <div class="col-4 text-left ml-2">
+
+                                </div>
+                                <div class="col-3 text-center">
+
+                                </div>
+                                <div class="col-3 text-right ml-auto"></div>
+                            </div>
+                            <th scope="col"><input type="checkbox" class="mr-2">Select All</th>
+                            <th scope="col">
+                                <div class="row justify-content-end">
+                                    <div class="col-6 text-left">12 Result</div>
+                                    <div class="col-6 text-right">350 Result</div>
+                                </div>
+
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody style="overflow-y:scroll;">
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog allergy</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">meds</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog accesories</th>
+                            <td class="text-right">Amazon | Google</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-2 mr-auto"><button type="button" class="btn btn-primary">Clear All</button></div>
+                        <div class="col-2 ml-auto"><button type="button" class="btn btn-primary">Export CSV</button> </div>
                     </div>
                 </div>
-                <div class="d-flex flex-column form-group align-items-end">
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
-                </div>
 
-
-            </form>
-        </div>
-        <div class="col-7">
-            <div class="row">
-                <div class="col-4 text-left">
-                    Head
-                </div>
-                <div class="col-4 text-center">
-                    Center
-                </div>
-                <div class="col-4 text-right">Right</div>
             </div>
-            <table class="table">
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
         </div>
-
     </div>
+
 </div>
 
 </body>
