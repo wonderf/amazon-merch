@@ -16,6 +16,9 @@
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
     <script src="js/worker.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous"/>
     <script src="js/xlsx.full.min.js"></script>
     <script src="js/FileSaver.js"></script>
     <script>
@@ -28,6 +31,7 @@
         var words;
         $(document).ready(function () {
             testAccess();
+            $('[data-toggle="tooltip"]').tooltip()
             $('#searchForm').on('submit', start);
             document.getElementById('csv')
                 .addEventListener('change', getCSVFile)
@@ -52,10 +56,10 @@
                 </li>
             </ul>
             <div class="row my-4">
-                <div class="col-4" >
+                <div class="col-4">
                     <div class="row">
                         <div class="col-12">
-<!--                            <img src="img/ams.png" class="img-fluid" alt="Responsive image">-->
+                            <!--                            <img src="img/ams.png" class="img-fluid" alt="Responsive image">-->
                             <div class="display-4">
                                 AMS.research v.09b
                                 <hr>
@@ -115,21 +119,29 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="deep">
-                                <label class="form-check-label" for="deep">
-                                    Deep search
-                                </label>
+                        <div class="form-group row">
+                            <div class="form-group col-11" >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="deep">
+                                    <label class="form-check-label" for="deep">
+                                        Deep search
+                                    </label>
+                                </div>
                             </div>
+                            <i class="far fa-question-circle col-1" data-toggle="tooltip" data-placement="top"
+                               title="Deep search"></i>
                         </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="reverse">
-                                <label class="form-check-label" for="reverse">
-                                    Reverse search
-                                </label>
+                        <div class="form-group row">
+                            <div class="form-group col-11">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="reverse">
+                                    <label class="form-check-label" for="reverse">
+                                        Reverse search
+                                    </label>
+                                </div>
                             </div>
+                            <i class="far fa-question-circle col-1" data-toggle="tooltip" data-placement="top"
+                               title="Reverse search"></i>
                         </div>
                         <div class="form-group row">
                             <div class="form-group col-2 mt-2">
@@ -153,7 +165,7 @@
 
                     <div class="row">
                         <div class="col-12">
-<!--                            <img src="img/creator.png" class="img-fluid" alt="Responsive image">-->
+                            <!--                            <img src="img/creator.png" class="img-fluid" alt="Responsive image">-->
 
                             <div class="display-4">
                                 Ad.creator v.09b
@@ -240,8 +252,8 @@
 
                         <tbody>
 
-                        <tr >
-                            <th scope="row" ><input type="checkbox" class="mr-2">dog allergy</th>
+                        <tr>
+                            <th scope="row"><input type="checkbox" class="mr-2">dog allergy</th>
                             <td class=" text-right r">Amazon | Google</td>
                         </tr>
                         <tr>
