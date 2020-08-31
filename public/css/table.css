@@ -1,0 +1,25 @@
+.header-fixed {
+    width: 100%
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 780px;
+    display: block;
+    width: 163%;
+}
+.header-fixed > tbody > tr {
+    display: block;
+}
+.r{
+    width: 87%;
+}
+
