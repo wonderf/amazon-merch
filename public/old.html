@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: center;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .progress {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        body.loading .progress{
+            display: block;
+        }
+
+        .cover-container {
+            max-width: 42em;
+            flex: 1;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="js/worker.js"></script>
+    <script src="js/xlsx.full.min.js"></script>
+    <script src="js/FileSaver.js"></script>
+    
+    <script>
+        
+        var results = [];
+        var result_name;
+        var count=0;
+        var total;
+        var csv;
+        var words;
+        $(document).ready(function () {
+            testAccess();
+            $('form').on('submit', start);
+            document.getElementById('csv')
+                .addEventListener('change', getCSVFile)
+        });
+    </script>
+    <meta name="robots" content="noindex">
+</head>
+
+<body>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+        </div>
+        <main>
+            <h1 class="cover-heading">Amazon Merch Analytics</h1>
+            <form>
+                <input id="search" class="form-control" type="text" placeholder="Search" aria-label="Search">
+                <input id="csv" class="form-control" type="file" aria-label="csv file">
+            </form>
+                <input type="checkbox" id="filter" name="shirt" >
+                <label for="filter"> filter</label>
+                <input type="text" id="filterName" placeholder="keys for filter" value="shirt, gift, apparel">
+                <label for="filterName" >value</label>
+                <br>
+                <input type="checkbox" id="deep" name="deep" >
+                <label for="deep"> deep search</label><br>
+
+                <input type="checkbox" id="reverse" name="deep" >
+                <label for="reverse"> reverse search</label><br>
+
+                <input type="radio" id="us_zone" name="zone" value="US" checked>
+                <label for="us_zone">US</label>
+                <input type="radio" id="uk_zone" name="zone" value="UK">
+                <label for="uk_zone">UK</label><br>
+
+                <input type="button" id="saver" value="save to excel" onclick="saveToXls()" class="mb-2"><br>
+                <input type="button" id="cleaner" value="clear results" onclick="cleaner()">
+            
+            <h3>Results</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <ul class="list-group" id="searchUl"></ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <ul class="list-group" id="searchEngine"></ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+</body>
+
+</html>

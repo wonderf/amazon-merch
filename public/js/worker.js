@@ -25,8 +25,6 @@ function start(evt) {
         search = [$input.val()];
     } else search = words;
     var progress = 0;
-    $('.progress-bar').css('width', '0%');
-
     var callbacks = [];
 
 
