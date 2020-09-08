@@ -25,10 +25,10 @@ function preparedParams() {
     return [u, filtering, filterName, deep, reverse, search]
 }
 
-function updateProgress(item, enable,filterName) {
+function updateProgress(item, enable, filterName) {
     let data = item[1];
     console.log(filterName)
-    if(enable) {
+    if (enable) {
         data = data.filter(function (str) {
             for (let i = 0; i < filterName.length; i++)
                 if (str.includes(filterName[i])) return true;
@@ -41,48 +41,44 @@ function updateProgress(item, enable,filterName) {
 }
 
 function start_search(params) {
-    let a = 'a'.charCodeAt();
-    let z = 'z'.charCodeAt();
-    let zero = '0'.charCodeAt();
-    let nine = '9'.charCodeAt();
-    let initialDelay=5000;
-    for(let i=0;i<params[5].length;i++) {
-        setTimeout(function (input,chars,cur,total) {
 
-        })
+    const initialDelay = 5000;
+    let now=0;
+    let start=[];
+    const a = 'a'.charCodeAt();
+    const z = 'z'.charCodeAt();
+    const zero = '0'.charCodeAt();
+    const nine = '9'.charCodeAt();
+    for(let i=a;i<=z;i++) start.push(i);
+    for(let i=zero;i<=nine;i++) start.push(i);
+    const total = 180000 * (params[5].length-1)*( ( params[3]? 5000*36:0))*(params[4]?2:1);
+    for (let i = 0; i < params[5].length; i++) {
+        //todo params
+        setTimeout(function (input, chars, now, total) {
+            sendSimpleRequest(input,chars)
+        },5000*i,params[5][i],start,5000*i,total)
     }
 
+    //deep search
     if (params[3]) {
     }
+    //reverse search
     if (params[4]) {
     }
 }
 
-function sendRequest(url,word,filtering,filteringName){
-    for (let i = zero; i <= nine; i++) {
+function sendSimpleRequest(url, word,sequnce, filtering, filteringName) {
+
+    for (let i = 0; i < sequnce.length; i++) {
         $.ajax({
-            url: url.replace("{0}", encodeURIComponent(word + ' ' + String.fromCharCode(i))), // строка, содержащая URL адрес, на который отправляется запрос
+            url: url.replace("{0}", encodeURIComponent(word + ' ' + String.fromCharCode(sequnce[i]))), // строка, содержащая URL адрес, на который отправляется запрос
             crossDomain: true,
             headers: {
                 "accept": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
 
-            success: data => updateProgress(data, filtering,filteringName), // функция обратного вызова, которая вызывается если AJAX запрос выполнится успешно
-            dataType: "jsonp" // тип данных, который вы ожидаете получить от сервера
-        });
-    }
-
-
-    for (let i = a; i <= z; i++) {
-        $.ajax({
-            url: url.replace("{0}", encodeURIComponent(word + ' ' + String.fromCharCode(i))), // строка, содержащая URL адрес, на который отправляется запрос
-            crossDomain: true,
-            headers: {
-                "accept": "application/json",
-                "Access-Control-Allow-Origin": "*"
-            },
-            success: data => updateProgress(data, filtering,filteringName), // функция обратного вызова, которая вызывается если AJAX запрос выполнится успешно
+            success: data => updateProgress(data, filtering, filteringName), // функция обратного вызова, которая вызывается если AJAX запрос выполнится успешно
             dataType: "jsonp" // тип данных, который вы ожидаете получить от сервера
         });
     }
