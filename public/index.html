@@ -33,7 +33,10 @@
         $(document).ready(function () {
             testAccess();
             $('[data-toggle="tooltip"]').tooltip()
-            $('#searchForm').on('submit', start);
+            $('#searchForm').on('submit', ()=>{
+                var s = new Searcher();
+                s.start_search();
+            });
             document.getElementById('csv')
                 .addEventListener('change', getCSVFile)
         });
