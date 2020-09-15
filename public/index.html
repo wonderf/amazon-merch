@@ -30,13 +30,17 @@
         var total;
         var csv;
         var words;
+        var filterName;
         $(document).ready(function () {
-            testAccess();
+            //testAccess();
             $('[data-toggle="tooltip"]').tooltip()
-            $('#searchForm').on('submit', ()=>{
+            $('#start').on('click', ()=>{
                 var s = new Searcher();
                 s.start_search();
             });
+            $('#clearBtn').on('click',()=>{
+                clear();
+            })
             document.getElementById('csv')
                 .addEventListener('change', getCSVFile)
         });
@@ -165,10 +169,24 @@
                                        aria-label="Search">
                             </div>
                         </div>
-                        <div class="d-flex flex-column form-group align-items-end">
-                            <button type="submit" class="btn btn-outline-secondary my-2" id="start">Search</button>
+
+                        <div class="row">
+                            <div class="form-group col-11">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="autosave">
+                                    <label class="form-check-label" for="autosave">
+                                        Auto save
+                                    </label>
+                                </div>
+                            </div>
+                            <i class="far fa-question-circle col-1" data-toggle="tooltip" data-placement="top"
+                               title="save per 1000"></i>
                         </div>
+
                     </form>
+                    <div class="d-flex flex-column form-group align-items-end">
+                        <button class="btn btn-outline-secondary my-2" id="start">Search</button>
+                    </div>
 
                     <div class="row">
                         <div class="col-12">
@@ -281,8 +299,8 @@
                             <th scope="col"><input type="checkbox" class="mr-2">Select All</th>
                             <th scope="col">
                                 <div class="row justify-content-end">
-                                    <div class="col-6 text-left">12 Result</div>
-                                    <div class="col-6 text-right">350 Result</div>
+                                    <div class="col-6 text-left" id="centerCounter">12 Result</div>
+                                    <div class="col-6 text-right" id="rightCounter">350 Result</div>
                                 </div>
 
                             </th>
@@ -434,7 +452,7 @@
 
                     <div class="row">
                         <div class="col-2 mr-auto">
-                            <button type="button" class="btn btn-primary">Clear All</button>
+                            <button type="button" class="btn btn-primary" id="clearBtn">Clear All</button>
                         </div>
                         <div class="col-2 ml-auto">
                             <button type="button" class="btn btn-primary">Export CSV</button>

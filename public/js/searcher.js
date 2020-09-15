@@ -88,20 +88,34 @@ function wordsGenerator() {
     }
     return result;
 }
-function updateProgress(item) {
+function updateProgress(item,url) {
     let data = item[1];
-    count++;
-    console.log(this.filterName)
-    if (this.filtering) {
+    if (filterName) {
         data = data.filter(function (str) {
             for (let i = 0; i < this.filterName.length; i++)
                 if (str.includes(this.filterName[i])) return true;
             return false;
         })
     }
+    count+=data.length;
     console.log(data);
+    //var markup = "<tr><td><input type='checkbox' name='record'></td><td></td><td></td></tr>";
+    //$("table tbody").append(markup);
+    data.forEach(item=>{
+        $('table tbody').append("<tr>\n" +
+            `                            <th scope=\"row\"><input type=\"checkbox\" class=\"mr-2\">${item}</th>\n` +
+            "                            <td class=\" text-right r\">Amazon | Google</td>\n" +
+            "                        </tr>")
+    })
+    // $('table tbody').append("<tr>\n" +
+    //      "                            <th scope=\"row\"><input type=\"checkbox\" class=\"mr-2\">dog allergy</th>\n" +
+    //     "                            <td class=\" text-right r\">Amazon | Google</td>\n" +
+    //      "                        </tr>")
 
     //check for duplicate and push to table
+
+    $('#rightCounter')[0].textContent=`${count} Results`;
+
 }
 
 function sendSimpleRequest( word,sequnce,url) {
@@ -114,10 +128,18 @@ function sendSimpleRequest( word,sequnce,url) {
                 "Access-Control-Allow-Origin": "*"
             },
 
-            success: data => updateProgress(data), // функция обратного вызова, которая вызывается если AJAX запрос выполнится успешно
+            success: data => updateProgress(data,), // функция обратного вызова, которая вызывается если AJAX запрос выполнится успешно
             dataType: "jsonp" // тип данных, который вы ожидаете получить от сервера
         });
     }
+}
+
+function clear(){
+    $('tbody tr').remove();
+    $('#centerCounter')[0].textContent="0 Results"
+    $('#rightCounter')[0].textContent="0 Results";
+    count=0;
+
 }
 
 
