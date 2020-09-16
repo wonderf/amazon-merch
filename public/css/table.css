@@ -25,4 +25,16 @@
 body{
     font-family: Roboto Slab !important;
 }
+table.text  {
+    width:  100%; /* Ширина таблицы */
+    border-spacing: 0; /* Расстояние между ячейками */
+}
+/*table.text td {*/
+/*    width: 50%; !* Ширина ячеек *!*/
+/*    vertical-align: top; !* Выравнивание по верхнему краю *!*/
+/*}*/
+td.rightcol { /* Правая ячейка */
+    text-align: right; /* Выравнивание по правому краю */
+}
+
 

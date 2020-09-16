@@ -103,8 +103,9 @@ function updateProgress(item,url) {
     //$("table tbody").append(markup);
     data.forEach(item=>{
         $('table tbody').append("<tr>\n" +
-            `                            <th scope=\"row\"><input type=\"checkbox\" class=\"mr-2\">${item}</th>\n` +
-            "                            <td class=\" text-right r\">Amazon | Google</td>\n" +
+            "\n" +
+            "                            <td nowrap=\"true\"><input type=\"checkbox\" class=\"mr-2\">"+item+"</td>\n" +
+            "                            <td class=\"rightcol\"> <a href=\"https://www.amazon.com/s?k="+item+"&i=fashion-novelty&bbn=12035955011&rh=p_6%3AATVPDKIKX0DER&hidden-keywords=ORCA\" target=\"_blank\">Amazon</a> | <a href=\"https://www.google.com/search?q="+item+"\" target=\"_blank\">Google</a></td>\n" +
             "                        </tr>")
     })
     // $('table tbody').append("<tr>\n" +

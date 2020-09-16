@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Два разных текста на одной строке</title>
+    <style>
+        table.text  {
+            width:  100%; /* Ширина таблицы */
+            border-spacing: 0; /* Расстояние между ячейками */
+        }
+        table.text td {
+            width: 50%; /* Ширина ячеек */
+            vertical-align: top; /* Выравнивание по верхнему краю */
+        }
+        td.rightcol { /* Правая ячейка */
+            text-align: right; /* Выравнивание по правому краю */
+        }
+    </style>
+</head>
+<body>
+<table class="text">
+    <tr>
+        <td>Текст слева</td>
+        <td class="rightcol">Текст справа</td>
+    </tr>
+</table>
+</body>
+</html>
