@@ -356,7 +356,7 @@ function testAccess() {
     })
 }
 
-function saveToXls() {
+function saveToXls(data) {
     var wb = XLSX.utils.book_new();
     wb.Props = {
         Title: "SheetJS Tutorial",
@@ -364,9 +364,13 @@ function saveToXls() {
         Author: "Red Stapler",
         CreatedDate: new Date()
     };
-
+    var ws_data;
     wb.SheetNames.push("Test Sheet");
-    var ws_data = collectResult();
+    if(data){
+        ws_data=collectResultData(data);
+    }else {
+        ws_data = collectResult();
+    }
     var ws = {};
     // var ws = XLSX.utils.aoa_to_sheet(ws_data);
     // var ws = XLSX.utils.json_to_sheet(ws_data);
@@ -383,7 +387,25 @@ function s2ab(s) {
     return buf;
 
 }
+function collectResultData(saved){
+    // let data = [];
+    let data = {};
+    for (let i = 0; i < saved.length; i++) {
+        // data.push({
+        //     name:lis[i].outerHTML,
+        // });
+        // data.push(lis[i].outerHTML);
+        let cell = XLSX.utils.encode_cell({c: 0, r: i});
 
+        data[cell] = {
+            f: `=HYPERLINK("${saved[i].href}","${saved[i].name}")`,
+            v: saved[i].name,
+            t: "s"
+        }
+    }
+    data["!ref"] = `A1:${XLSX.utils.encode_cell({c: 0, r: saved.length - 1})}`
+    return data;
+}
 
 function collectResult() {
     let lis = $('#searchUl li');
